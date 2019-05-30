@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>My Family Clan - HTML</title>
+</head>
+<body>
+<h1>Hello, World!!!</h1><br/>
+<!-- <a href="all">Get all </a> -->
+<p id="demo">Let AJAX change this text.</p>
+<button type="button" onclick="loadDoc()">Change Content</button>
+
+<br/>
+<br/>
+<span id="addMemberSpan">
+Name : <input id="name" type="text"/><br/>
+Age : <input id="age" type="text"/><br/>
+Father's Name : <input id="fname" type="text"/><br/>
+Father's Age : <input id="fage" type="text"/><br/>
+Mother's Name : <input id="mname" type="text"/><br/>
+Mother's Age : <input id="mage" type="text"/><br/>
+</span>
+<br/>
+<button type="button" onclick="addMember()">Add Member</button>
+<button type="button" onclick="clearInp()">Reset</button>
+<script>
+function loadDoc() {
+  var txt = "";
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	      myObj = JSON.parse(this.responseText);
+	      txt += "<table border='1'>"
+	    	txt += "<tr><td>Name</td>";
+	        txt += "<td>Age</td>";
+	        txt += "<td>Father's Name</td>";
+	        txt += "<td>Father's Age</td>";
+	        txt += "<td>Mother's Name</td>";
+	        txt += "<td>Mother's Age</td>";
+	        txt += "</tr>";
+	      for (x in myObj) {
+	        txt += "<tr><td>" + myObj[x].name + "</td>";
+	        txt += "<td>" + myObj[x].age + "</td>";
+	        txt += "<td>" + myObj[x].father.name + "</td>";
+	        txt += "<td>" + myObj[x].father.age + "</td>";
+	        txt += "<td>" + myObj[x].mother.name + "</td>";
+	        txt += "<td>" + myObj[x].mother.age + "</td>";
+	        txt += "</tr>";
+	      }
+	      txt += "</table>" 
+	      document.getElementById("demo").innerHTML = txt;
+// 	      document.getElementById("demo").innerHTML = this.responseText;
+	    }
+	  };
+  xhttp.open("GET", "all", false);
+  xhttp.send();
+//   document.getElementById("demo").innerHTML = xhttp.responseText;
+}
+
+function addMember() {
+	
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.open("POST", "add", false);
+	  xhttp.setRequestHeader("Content-type", "application/json");
+	  xhttp.send('{"name":"'+document.getElementById("name").value+'","age":'+document.getElementById("age").value+',"father":{"name":"'+document.getElementById("fname").value+'","age":'+document.getElementById("fage").value+',"father":null,"mother":null},"mother":{"name":"'+document.getElementById("mname").value+'","age":'+document.getElementById("mage").value+',"father":null,"mother":null}}');
+	}
+	
+function clearInp() {
+		  document.getElementById("name").value = '';
+		  document.getElementById("age").value = '';
+		  document.getElementById("fname").value = '';
+		  document.getElementById("fage").value = '';
+		  document.getElementById("mname").value = '';
+		  document.getElementById("mage").value = '';
+	}
+</script>
+</body>
+</html>
