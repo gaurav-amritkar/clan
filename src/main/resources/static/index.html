@@ -23,6 +23,12 @@ Mother's Age : <input id="mage" type="text"/><br/>
 <br/>
 <button type="button" onclick="addMember()">Add Member</button>
 <button type="button" onclick="clearInp()">Reset</button>
+<br/>
+<br/>
+<span id="removeMemberSpan">
+Name : <input id="removeName" type="text"/><br/>
+</span>
+<button type="button" onclick="removeMember()">Remove Member</button>
 <script>
 function loadDoc() {
   var txt = "";
@@ -72,6 +78,15 @@ function clearInp() {
 		  document.getElementById("fage").value = '';
 		  document.getElementById("mname").value = '';
 		  document.getElementById("mage").value = '';
+		  document.getElementById("removeName").value = '';
+	}
+	
+function removeMember() {
+	
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.open("DELETE", "/delete/"+document.getElementById("removeName").value, false);
+// 	  xhttp.setRequestHeader("Content-type", "application/json");
+	  xhttp.send();
 	}
 </script>
 </body>

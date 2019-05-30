@@ -28,5 +28,9 @@ public class ClanService {
 	public void addMember(Myself m) {
 		dao.addMember(m);
 	}
+	
+	public void removeMember(String name) {
+		dao.removeMember(name);
+	}
 
 }

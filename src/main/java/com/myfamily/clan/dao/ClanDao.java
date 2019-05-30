@@ -44,5 +44,10 @@ public class ClanDao {
 	public void addMember(Myself m) {
 		list.add(m);
 	}
+	
+	public void removeMember(String name) {
+		Myself m = list.stream().filter(s -> s.getName().equals(name)).findFirst().get();
+		list.remove(m);
+	}
 
 }

@@ -6,6 +6,7 @@ package com.myfamily.clan.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +44,11 @@ public class ClanController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public void addMember(@RequestBody Myself m) {
 		service.addMember(m);
+	}
+	
+	@RequestMapping(value = "/delete/{pv_name}", method = RequestMethod.DELETE)
+	public void removeMember(@PathVariable(value = "pv_name") String name) {
+		service.removeMember(name);
 	}
 
 }
